@@ -1,0 +1,43 @@
+.articlePage {
+    background: var(--black-2);
+    border-radius: 3px;
+    box-shadow: 0px 1.13947px 2.27895px rgba(0, 0, 0, 0.16),
+        0px 2.27895px 4.55789px rgba(0, 0, 0, 0.12),
+        0px 1.13947px 9.11579px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    padding: 20px;
+}
+
+.body {
+    padding-bottom: 15px;
+    margin-bottom: 15px;
+    border-bottom: 1px solid var(--grey);
+}
+
+.title {
+    color: var(--gold);
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+}
+
+.about {
+    display: flex;
+    justify-content: space-between;
+}
+
+.userInfo {
+    display: flex;
+}
+
+.tagWrap {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.tag {
+    background: var(--black-2);
+    padding: 5px 8px;
+    margin-left: 8px;
+    border-radius: 3px;
+    transition: transform .3s linear;
+}

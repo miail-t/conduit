@@ -1,0 +1,32 @@
+.userPreview {
+    display: flex;
+}
+
+.image {
+    border-radius: 50%;
+    height: 32px;
+    width: 32px;
+}
+
+.name {
+    color: var(--gold);
+    font-weight: 500;
+    letter-spacing: 1.5;
+    text-decoration: none;
+
+    &:hover {
+        opacity: .5;
+    }
+}
+
+.date {
+    font-size: 12px;
+}
+
+.textWrap {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+
+    margin-left: 12px;
+}

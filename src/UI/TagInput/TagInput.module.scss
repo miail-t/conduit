@@ -1,0 +1,15 @@
+.inputWrap {
+    display: flex;
+    align-items: flex-end;
+}
+
+.AddIcon {
+    margin-left: 5px;
+    margin-bottom: 3px;
+    fill: var(--grey);
+
+
+    &:hover {
+        fill: var(--white);
+    }
+}

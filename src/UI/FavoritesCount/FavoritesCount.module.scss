@@ -1,0 +1,39 @@
+.counter {
+    display: flex;
+    align-items: center;
+    padding: 5px;
+    font-size: 14px;
+    width: min-content;
+    transition: color .4s ease;
+
+    &:hover {
+        color: var(--grey);
+
+        .icon {
+            fill: var(--grey);
+        }
+    }
+
+    .icon {
+        transition: fill .4s ease;
+        fill: var(--white);
+    }
+}
+
+.favorite {
+    color: var(--red);
+
+    .icon {
+        fill: var(--red);
+    }
+}
+
+.count {
+    margin-right: 3px;
+}
+
+.icon {
+    fill: var(--white);
+    height: 16px;
+    width: 16px;
+}

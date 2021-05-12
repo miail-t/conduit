@@ -1,0 +1,33 @@
+.comment {
+  background: #e0e0e014;
+  border-radius: 3px;
+  box-shadow: 0px 1.13947px 2.27895px rgba(0, 0, 0, 0.16),
+    0px 2.27895px 4.55789px rgba(0, 0, 0, 0.12),
+    0px 1.13947px 9.11579px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  padding: 20px;
+
+  max-width: 500px;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+}
+
+.username {
+  margin-right: 10px;
+}
+
+.date {
+  color: var(--grey);
+}
+
+.bin {
+  margin-right: auto;
+  fill: var(--white);
+
+  &:hover {
+    fill: var(--grey);
+  }
+}

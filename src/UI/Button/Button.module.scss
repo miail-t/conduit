@@ -1,0 +1,28 @@
+.button {
+  color: var(--white);
+  background: var(--black-1);
+  padding: 12px;
+  border-radius: 3px;
+  min-width: 100px;
+  text-transform: uppercase;
+
+  cursor: pointer;
+  border: none;
+
+  &:disabled {
+    background: rebeccapurple;
+  }
+}
+
+.loading {
+    height: 9px;
+    width: 9px;
+}
+
+.primary {
+  color: aqua;
+}
+
+.secondary {
+  color: brown;
+}

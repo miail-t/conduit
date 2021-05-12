@@ -1,0 +1,34 @@
+.textArea {
+  display: flex;
+  flex-direction: column;
+}
+
+.area {
+  display: block;
+  background: transparent;
+  min-width: 290px;
+  min-height: 200px;
+  color: var(--white);
+  font-size: 18px;
+  outline: none;
+  resize: vertical;
+
+  &:focus {
+    border-color: var(--white);
+  }
+}
+
+.error {
+  display: inline;
+  font-size: 11px;
+}
+
+.error {
+  .textError {
+    color: var(--red);
+  }
+
+  .area {
+    border-color: var(--red);
+  }
+}

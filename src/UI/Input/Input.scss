@@ -1,0 +1,71 @@
+.inputWrap {
+  width: fit-content;
+}
+
+.label {
+  position: relative;
+  font-size: 18px;
+  top: 24px;
+  color: var(--grey);
+  transition: top 0.3s, color 0.3s, font-size 0.3s,
+    border-bottom 0.9s;
+  line-height: 20px;
+}
+
+input {
+  display: block;
+  width: 100%;
+  border: none;
+  outline: none;
+  background: transparent;
+  padding: 0;
+  padding-bottom: 5px;
+
+  font-size: 18px;
+  line-height: normal;
+
+  border-bottom: 1px solid var(--grey);
+  color: var(--white);
+
+  &:focus {
+    border-color: var(--white);
+  }
+}
+
+.error {
+  font-size: 11px;
+}
+
+.textError {
+  opacity: 0;
+  transition: opacity .3s ease-out;
+}
+
+.focused {
+  .label {
+    top: 0px;
+    font-size: 14px;
+    color: var(--white);
+  }
+}
+
+.value {
+  .label {
+    top: 0px;
+    font-size: 14px;
+  }
+}
+
+.error {
+
+  .label,
+  .textError {
+    color: var(--red);
+    opacity: 1;
+  }
+
+  .input {
+    border-color: var(--red);
+    color: var(--red);
+  }
+}

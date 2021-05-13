@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from "react-redux";
 import { Route, Router } from 'react-router-dom';
 import { RootState } from './rootReducer'
@@ -7,6 +7,7 @@ import router from './route';
 import { createBrowserHistory } from "history";
 import Header from './component/Header';
 import './App.scss';
+import ToastWrap from './UI/ToastWrap';
 
 
 
@@ -30,6 +31,7 @@ function App() {
       <div className="App container">
         <Header />
         {route}
+        <ToastWrap />
       </div>
     </Router>
   );

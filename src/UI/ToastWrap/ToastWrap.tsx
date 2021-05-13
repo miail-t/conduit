@@ -11,7 +11,7 @@ const ToastWrap = () => {
         console.log(qwerty)
     }, [])
 
-    const newQwerty = qwerty.map(toast => { return <Toast key={toast.id} type={toast.type} title={toast.title} body={toast.body} id={toast.id} /> })
+    const newQwerty = qwerty.map(toast => { return <Toast key={toast.id} type={toast.type} title={toast.title} description={toast.description} id={toast.id} /> })
 
     return <>{newQwerty}</>
 }

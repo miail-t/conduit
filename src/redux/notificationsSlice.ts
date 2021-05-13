@@ -4,14 +4,14 @@ import { Notification } from '../type/type'
 const initialState: Notification[] = [
     {
         type: 'error',
-        title: 'first',
-        body: 'first toast',
+        title: 'Отправка невозможна',
+        description: 'Все пошло по пизде',
         id: 1
     },
     {
         type: 'successful',
-        title: 'second',
-        body: 'second toast',
+        title: 'Отправлено',
+        description: 'Все прошло заебись',
         id: 2
     },
 ];

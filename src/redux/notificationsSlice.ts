@@ -14,6 +14,12 @@ const initialState: Notification[] = [
         description: 'Все прошло заебись',
         id: 2
     },
+    {
+        type: 'info',
+        title: 'Просто сообщаем',
+        description: 'Ничего не произошло',
+        id: 3
+    },
 ];
 
 const notificationsSlice = createSlice({

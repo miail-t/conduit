@@ -1,19 +1,17 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../rootReducer';
 import Toast from '../Toast';
 
+import style from './ToastWrap.module.scss';
 
 const ToastWrap = () => {
-    const qwerty = useSelector((state: RootState) => state.notifications);
+    const notifications = useSelector((state: RootState) => state.notifications);
+    const notificationsList = notifications.map(toast => { return <Toast {...toast} key={toast.id} /> })
 
-    useEffect(() => {
-        console.log(qwerty)
-    }, [])
-
-    const newQwerty = qwerty.map(toast => { return <Toast key={toast.id} type={toast.type} title={toast.title} description={toast.description} id={toast.id} /> })
-
-    return <>{newQwerty}</>
+    return <div className={style.toastWrap} >
+        {notificationsList}
+    </div>
 }
 
-export default ToastWrap
+export default ToastWrap;

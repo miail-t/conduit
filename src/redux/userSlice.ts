@@ -1,7 +1,8 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { editUserInfo, registrationUser, loginUser, getUser } from '../utils/api';
 import { UserInfo } from './storeType';
-import { RegistrationUser } from '../type/request'
+import { RegistrationUser, User } from '../type/request'
+import { customHistory } from '../App';
 
 
 export const fetchRegistration = createAsyncThunk(
@@ -37,22 +38,51 @@ export const fetchEditUserInfo = createAsyncThunk(
     }
 )
 
+type InitialState = {
+    user: User,
+    loading: boolean,
+    error: any  // need to fix
+}
+
+const initialState: InitialState = {
+    user: {
+        email: '',
+        token: '',
+        username: '',
+        createdAt: '',
+        updatedAt: '',
+        bio: '',
+        image: '',
+    },
+    loading: false,
+    error: {}
+}
+
+const State: InitialState = {
+    user: {
+        email: '',
+        token: '',
+        username: '',
+        createdAt: '',
+        updatedAt: '',
+        bio: '',
+        image: '',
+    },
+    loading: false,
+    error: {}
+}
+
 
 const userSlice = createSlice({
     name: 'user',
-    initialState: {
-        user: {
-            email: '',
-            token: '',
-            username: '',
-            bio: '',
-            image: ''
-        },
-        loading: false,
-        error: {}
-    },
+    initialState: initialState,
     reducers: {
-
+        logout(state) {
+            localStorage.removeItem('token');
+            console.log(State)
+            state = State;
+            customHistory.push('/');
+        }
     },
     extraReducers: builder => {
         builder.addCase(fetchRegistration.pending, (state) => {
@@ -93,11 +123,11 @@ const userSlice = createSlice({
         })
         builder.addCase(fetchEditUserInfo.rejected, (state, action) => {
             console.log(action)
-            state.error = { }
+            state.error = {}
             state.loading = false
         })
     }
 });
 
-export const { } = userSlice.actions;
+export const { logout } = userSlice.actions;
 export default userSlice.reducer;

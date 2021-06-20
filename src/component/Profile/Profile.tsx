@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
-import { Link, useParams } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link, useHistory, useParams } from 'react-router-dom';
 
 import Button from '../../UI/Button';
 import Spinner from "../../UI/Spinner"
 import FollowButton from '../FollowButton';
 import { GetProfile } from '../../utils/api';
 
+import { logout } from '../../redux/userSlice';
 import { Profile } from '../../redux/storeType'
 import { RootState } from '../../rootReducer';
 
@@ -15,6 +16,7 @@ import style from './Profile.module.scss';
 
 
 const ProfileInner = () => {
+    const dispatch = useDispatch()
     const { username }: { username: string } = useParams();
     const loginUserName = useSelector((store: RootState) => store.user.user.username);
     const [profile, setProfile] = useState<Profile>();
@@ -45,7 +47,7 @@ const ProfileInner = () => {
                         {loginUserName === username ?
                             <div className={style.logoutWrap}>
                                 <Link className={style.logout} to={'/settings'} >Edit profile</Link>
-                                <Button theme={'primary'} onClick={() => { localStorage.removeItem('token') }} >Logout</Button>
+                                <Button theme={'primary'} onClick={() => dispatch(logout())} >Logout</Button>
                             </div> :
                             <FollowButton username={username} follow={profile.following} />
                         }

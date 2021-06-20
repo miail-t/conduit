@@ -1,29 +1,38 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { editUserInfo, registrationUser, loginUser, getUser } from '../utils/api';
 import { UserInfo } from './storeType';
-import { RegistrationUser } from '../type/request'
+import { RegistrationUser, User } from '../type/request'
+import { customHistory } from '../App';
 
 
 export const fetchRegistration = createAsyncThunk(
     'user/fetchRegistration',
-    async (user: RegistrationUser) => {
-        const { data } = await registrationUser(user);
-        return data;
+    async (user: RegistrationUser, { rejectWithValue }) => {
+        try {
+            const { data } = await registrationUser(user);
+            return data;
+        } catch (err) {
+            return rejectWithValue(err.errors)
+        }
     }
 )
 
 export const fetchLogin = createAsyncThunk(
     'user/fetchLogin',
-    async (user: RegistrationUser) => {
-        const { data } = await loginUser(user);
-        return data;
+    async (user: RegistrationUser, { rejectWithValue }) => {
+        try {
+            const { data } = await loginUser(user);
+            return data;
+        } catch (err) {
+            return rejectWithValue({ login: "Incorrect email or password" })
+        }
     }
 )
 
 export const fetchUser = createAsyncThunk(
     'user/fetchUser',
     async () => {
-        const { data } = await getUser()
+        const { data } = await getUser();
         return data
     }
 )
@@ -37,22 +46,36 @@ export const fetchEditUserInfo = createAsyncThunk(
     }
 )
 
+type InitialState = {
+    user: User,
+    loading: boolean,
+    error: any  // need to fix
+}
+
+const initialState: InitialState = {
+    user: {
+        email: '',
+        token: '',
+        username: '',
+        createdAt: '',
+        updatedAt: '',
+        bio: '',
+        image: '',
+    },
+    loading: false,
+    error: {}
+}
+
 
 const userSlice = createSlice({
     name: 'user',
-    initialState: {
-        user: {
-            email: '',
-            token: '',
-            username: '',
-            bio: '',
-            image: ''
-        },
-        loading: false,
-        error: {}
-    },
+    initialState: initialState,
     reducers: {
-
+        logout() {
+            localStorage.removeItem('token');
+            customHistory.push('/');
+            return initialState;
+        },
     },
     extraReducers: builder => {
         builder.addCase(fetchRegistration.pending, (state) => {
@@ -60,8 +83,13 @@ const userSlice = createSlice({
         })
         builder.addCase(fetchRegistration.fulfilled, (state, action) => {
             state.user = { ...action.payload.user };
+            state.error = {};
             state.loading = false;
             localStorage.setItem('token', state.user.token);
+        })
+        builder.addCase(fetchRegistration.rejected, (state, action) => {
+            state.loading = false;
+            state.error = action.payload;
         })
 
         builder.addCase(fetchLogin.pending, (state) => {
@@ -69,9 +97,15 @@ const userSlice = createSlice({
         })
         builder.addCase(fetchLogin.fulfilled, (state, action) => {
             state.user = { ...action.payload.user };
+            state.error = {};
             state.loading = false;
             localStorage.setItem('token', state.user.token);
         })
+        builder.addCase(fetchLogin.rejected, (state, action) => {
+            state.loading = false;
+            state.error = action.payload;
+        })
+
 
         builder.addCase(fetchUser.pending, (state) => {
             state.loading = true
@@ -81,7 +115,7 @@ const userSlice = createSlice({
             state.loading = false
         })
         builder.addCase(fetchUser.rejected, (state) => {
-            state.loading = true
+            state.loading = false
         })
 
         builder.addCase(fetchEditUserInfo.pending, (state) => {
@@ -93,11 +127,11 @@ const userSlice = createSlice({
         })
         builder.addCase(fetchEditUserInfo.rejected, (state, action) => {
             console.log(action)
-            state.error = { }
+            state.error = {}
             state.loading = false
         })
     }
 });
 
-export const { } = userSlice.actions;
+export const { logout } = userSlice.actions;
 export default userSlice.reducer;

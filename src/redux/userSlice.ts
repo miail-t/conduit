@@ -32,7 +32,7 @@ export const fetchLogin = createAsyncThunk(
 export const fetchUser = createAsyncThunk(
     'user/fetchUser',
     async () => {
-        const { data } = await getUser()
+        const { data } = await getUser();
         return data
     }
 )

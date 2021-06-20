@@ -1,20 +1,26 @@
-import React, { useState } from 'react';
-
+import React, { useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from "react-redux";
+import { RootState } from '../../rootReducer';
 import { fetchRegistration } from '../../redux/userSlice'
 
 import Input from '../../UI/Input';
 import Form from '../../UI/Form';
 import Button from '../../UI/Button';
-import { RootState } from '../../rootReducer';
-
 
 export default function Registration() {
     const dispatch = useDispatch();
-    const { error, loading } = useSelector((state: RootState) => state.user);
+    const history = useHistory();
+    const { user, error, loading } = useSelector((state: RootState) => state.user);
     const [username, ChangeUserName] = useState('')
     const [email, ChangeEmail] = useState('')
     const [password, Changepassword] = useState('')
+
+    useEffect(() => {
+        if (user.token) {
+            history.push('/');
+        }
+    })
 
     const onSubmit = () => {
         dispatch(fetchRegistration({ username, email, password }))

@@ -1,12 +1,7 @@
 import React from 'react';
+import {TagProps} from "../../../type/common";
 
 import style from './Tag.module.scss'
-
-type TagProps = {
-    id: number
-    value: string
-    deleteTag: (id: number) => void
-}
 
 const TagInner = ({ id, value, deleteTag }: TagProps) => {
     return (

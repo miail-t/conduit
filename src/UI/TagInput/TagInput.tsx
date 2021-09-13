@@ -1,32 +1,33 @@
-import React, { useEffect, useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import Input from '../Input';
 import Tag from './Tag'
 import IconButton from '../IconButton';
-import { ReactComponent as AddIcon } from '../../assets/Add.svg'
+import {ReactComponent as AddIcon} from '../../assets/Add.svg'
 
 import style from './TagInput.module.scss'
 
+
 interface Props {
     label?: string,
-    onChange: (tagLisr: Tag[]) => void,
+    onChange: (tagLisr: TagList[]) => void,
 }
 
-type Tag = {
+export type TagList = {
     id: number,
     value: string
 }
 
-const TagInputInner = ({ onChange, ...restProps }: Props) => {
-    const [tagsList, changeTagsList] = useState<Tag[]>([])
+const TagInputInner = ({onChange, ...restProps}: Props) => {
+    const [tagsList, changeTagsList] = useState<TagList[]>([]);
     const [inputValue, changeValue] = useState<string>('');
 
     useEffect(() => {
         onChange(tagsList);
-    }, [tagsList])
+    }, [onChange, tagsList])
 
     const addTagToArray = () => {
         if (inputValue !== '') {
-            changeTagsList([...tagsList, { id: tagsList.length, value: inputValue }]);
+            changeTagsList([...tagsList, {id: (new Date()).getTime(), value: inputValue}]);
             changeValue('');
         }
     };
@@ -39,10 +40,10 @@ const TagInputInner = ({ onChange, ...restProps }: Props) => {
     return (
         <div className={style.inputWrap}>
             {tagsList && tagsList.map((tag) => {
-                return <Tag key={tag.id} id={tag.id} value={tag.value} deleteTag={deleteTag} />;
+                return <Tag key={tag.id + tag.value} id={tag.id} value={tag.value} deleteTag={deleteTag}/>;
             })}
             <Input onChange={changeValue} value={inputValue} {...restProps} />
-            <IconButton type='button' onClick={addTagToArray} ><AddIcon className={style.AddIcon} /></IconButton>
+            <IconButton type='button' onClick={addTagToArray}><AddIcon className={style.AddIcon}/></IconButton>
         </div>
     )
 }

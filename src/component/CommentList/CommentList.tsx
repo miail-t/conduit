@@ -7,17 +7,16 @@ import CommentField from "../CommentField";
 
 type CommentListProps = {
     slug: string,
-
 }
 
 const CommentListInner = ({ slug }: CommentListProps) => {
     const [comments, changeComments] = useState<CommentType[]>([]);
 
     useEffect(() => {
-        fetchComments();
-    }, [])
+        fetchComments(slug);
+    }, [slug])
 
-    const fetchComments = async () => {
+    const fetchComments = async (slug: string) => {
         const { data } = await getComments(slug);
         changeComments(data.comments);
     }

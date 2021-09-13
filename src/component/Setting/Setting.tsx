@@ -10,9 +10,7 @@ import { fetchEditUserInfo } from '../../redux/userSlice'
 import './Setting.scss';
 import { useDispatch, useSelector } from 'react-redux';
 
-interface SettingProps { }
-
-const SettingInner = ({ }: SettingProps) => {
+const SettingInner = () => {
     const dispatch = useDispatch();
     const user = useSelector((state: RootState) => state.user)
     const [image, changeUrl] = useState<string>();
@@ -26,7 +24,7 @@ const SettingInner = ({ }: SettingProps) => {
         changeUserName(user.user.username)
         changeBio(user.user.bio)
         changeEmail(user.user.email)
-    }, [user.loading])
+    }, [user])
 
     const onSubmit = () => {
         const user = { email, username, image, bio, password }

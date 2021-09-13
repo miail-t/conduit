@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useSelector, useStore } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { RootState } from '../../rootReducer';
 import Button from '../../UI/Button';
 import { followUser, unfollowUser } from '../../utils/api';
@@ -14,7 +14,6 @@ type Props = {
 const FollowButtonInner = ({ username, follow }: Props) => {
     const loginUserName = useSelector((store: RootState) => store.user.user.username);
     const [followStatus, changeFollowStatus] = useState<boolean>(follow);
-    //const [loading, changeLoading] = useState<boolean>(false);
 
     const followHandler = async () => {
         try {

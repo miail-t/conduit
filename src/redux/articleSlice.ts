@@ -1,5 +1,4 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { type } from 'os';
 import { ArticlesRequestParams, ArticleType } from '../type/request';
 import { getGlobalFeed } from '../utils/api';
 
@@ -34,12 +33,7 @@ const articleSlice = createSlice({
             state.articlesCount = action.payload.articlesCount
             console.log({ ...state, ...action.payload })
         })
-        /* builder.addCase(fetchArticles.fulfilled, (state, action) => {
-            state.loading = false
-        }) */
     }
 });
-
-export const { } = articleSlice.actions;
 
 export default articleSlice.reducer;

@@ -19,7 +19,7 @@ export default function Feed() {
 
     useEffect(() => {
         dispatch(fetchArticles({ limit: limit, offset: Number(pageNember) * limit - limit }))
-    }, [pageNember])
+    }, [pageNember, dispatch])
 
     const clickHandler = (index: number) => {
         history.push(`/Home/globalfeed${index}`)

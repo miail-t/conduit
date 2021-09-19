@@ -4,11 +4,12 @@ import { Route, Router } from 'react-router-dom';
 import { RootState } from './rootReducer'
 import { fetchUser } from './redux/userSlice'
 import router from './route';
+import {ToastContainer} from "react-toastify";
 import { createBrowserHistory } from "history";
 import Header from './component/Header';
+
+import 'react-toastify/dist/ReactToastify.css';
 import './App.scss';
-
-
 
 export const customHistory = createBrowserHistory();
 
@@ -21,7 +22,6 @@ function App() {
     }
   })
 
-
   const route = router.map((elem, i) => (
     <Route key={i} path={elem.path} exact={elem.exact} component={elem.component} />
   ));
@@ -31,6 +31,7 @@ function App() {
         <Header />
         {route}
       </div>
+      <ToastContainer />
     </Router>
   );
 }

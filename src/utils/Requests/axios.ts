@@ -14,10 +14,12 @@ axiosInst.interceptors.request.use((config) => {
 
     const headers = {
         ...config.headers,
+        'Access-Control-Allow-Origin': '*',
+        "Content-Type": "application/json; charset=utf-8",
         Authorization: `Token ${accessToken}`,
     };
 
-    return { ...config, headers };
+    return {...config, headers};
 });
 
 axiosInst.interceptors.response.use(

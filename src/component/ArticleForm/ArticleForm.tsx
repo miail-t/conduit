@@ -13,6 +13,7 @@ import { useHistory } from 'react-router-dom';
 import {TagList} from "../../UI/TagInput/TagInput";
 
 import './ArticleForm.module.scss';
+import Toast from "../../services/Toast";
 
 
 const ArticleFormInner = () => {
@@ -24,9 +25,15 @@ const ArticleFormInner = () => {
     const [tagListItems, changeTag] = useState<TagList[]>([]);
 
     const onSubmit = async () => {
-        const tagList = tagListItems.map(tag => { return tag.value })
-        await addArticle({ title, description, body, tagList })
-        history.push('/')
+        try {
+            const tagList = tagListItems.map(tag => { return tag.value })
+            await addArticle({ title, description, body, tagList })
+            Toast.success("Article created", "Successfully")
+            history.push('/')
+        } catch (e) {
+            Toast.error()
+        }
+
     }
 
     const [asyncSubmit, loading, error] = useAsyncCallback(onSubmit)

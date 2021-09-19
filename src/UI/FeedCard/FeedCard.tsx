@@ -26,7 +26,7 @@ function FeedCard({
     const [loading, changeLoading] = useState<boolean>(false);
 
     const tags = tagList.map((tag) => {
-        return <span className={style.tag} >#{tag}</span>
+        return <span key={tag} className={style.tag} >#{tag}</span>
     })
 
     const removeArticle = async () => {

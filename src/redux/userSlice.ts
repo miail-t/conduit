@@ -1,15 +1,16 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { editUserInfo, registrationUser, loginUser, getUser } from '../utils/api';
-import { UserInfo } from './storeType';
-import { RegistrationUser, User } from '../type/request'
-import { customHistory } from '../App';
+import {createSlice, createAsyncThunk} from '@reduxjs/toolkit';
+import {editUserInfo, registrationUser, loginUser, getUser} from '../utils/api';
+import {UserInfo} from './storeType';
+import {RegistrationUser, User} from '../type/request'
+import {customHistory} from '../App';
+import Toast from "../services/Toast";
 
 
 export const fetchRegistration = createAsyncThunk(
     'user/fetchRegistration',
-    async (user: RegistrationUser, { rejectWithValue }) => {
+    async (user: RegistrationUser, {rejectWithValue}) => {
         try {
-            const { data } = await registrationUser(user);
+            const {data} = await registrationUser(user);
             return data;
         } catch (err) {
             return rejectWithValue(err.errors)
@@ -19,12 +20,12 @@ export const fetchRegistration = createAsyncThunk(
 
 export const fetchLogin = createAsyncThunk(
     'user/fetchLogin',
-    async (user: RegistrationUser, { rejectWithValue }) => {
+    async (user: RegistrationUser, {rejectWithValue}) => {
         try {
-            const { data } = await loginUser(user);
+            const {data} = await loginUser(user);
             return data;
         } catch (err) {
-            return rejectWithValue({ login: "Incorrect email or password" })
+            return rejectWithValue({login: "Incorrect email or password"})
         }
     }
 )
@@ -32,17 +33,22 @@ export const fetchLogin = createAsyncThunk(
 export const fetchUser = createAsyncThunk(
     'user/fetchUser',
     async () => {
-        const { data } = await getUser();
+        const {data} = await getUser();
         return data
     }
 )
 
 export const fetchEditUserInfo = createAsyncThunk(
     'user/fetchEditUserInfo',
-    async (editParms: UserInfo) => {
-        const { data } = await editUserInfo(editParms);
-        console.log(data)
-        return data;
+    async (editParms: UserInfo,{rejectWithValue}) => {
+        try {
+            const {data} = await editUserInfo(editParms);
+            Toast.success('User info updated', 'Successfully');
+            return data;
+        } catch (error) {
+            Toast.error();
+            return rejectWithValue(error.errors);
+        }
     }
 )
 
@@ -82,7 +88,7 @@ const userSlice = createSlice({
             state.loading = true;
         })
         builder.addCase(fetchRegistration.fulfilled, (state, action) => {
-            state.user = { ...action.payload.user };
+            state.user = {...action.payload.user};
             state.error = {};
             state.loading = false;
             localStorage.setItem('token', state.user.token);
@@ -96,7 +102,7 @@ const userSlice = createSlice({
             state.loading = true;
         })
         builder.addCase(fetchLogin.fulfilled, (state, action) => {
-            state.user = { ...action.payload.user };
+            state.user = {...action.payload.user};
             state.error = {};
             state.loading = false;
             localStorage.setItem('token', state.user.token);
@@ -111,7 +117,7 @@ const userSlice = createSlice({
             state.loading = true
         })
         builder.addCase(fetchUser.fulfilled, (state, action) => {
-            state.user = { ...action.payload.user };
+            state.user = {...action.payload.user};
             state.loading = false
         })
         builder.addCase(fetchUser.rejected, (state) => {
@@ -119,19 +125,21 @@ const userSlice = createSlice({
         })
 
         builder.addCase(fetchEditUserInfo.pending, (state) => {
+            state.error = {};
             state.loading = true
         })
         builder.addCase(fetchEditUserInfo.fulfilled, (state, action) => {
-            state.user = { ...action.payload.user }
+            state.error = {};
+            state.user = {...action.payload.user}
             state.loading = false
         })
         builder.addCase(fetchEditUserInfo.rejected, (state, action) => {
             console.log(action)
-            state.error = {}
-            state.loading = false
+            state.error = action.payload;
+            state.loading = false;
         })
     }
 });
 
-export const { logout } = userSlice.actions;
+export const {logout} = userSlice.actions;
 export default userSlice.reducer;

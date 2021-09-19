@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux';
 import { RootState } from '../../rootReducer';
 import Button from '../../UI/Button';
 import { followUser, unfollowUser } from '../../utils/api';
+import Toast from "../../services/Toast";
 
 import style from './FollowButton.module.scss'
 
@@ -20,7 +21,7 @@ const FollowButtonInner = ({ username, follow }: Props) => {
             const { data } = await followUser(username);
             changeFollowStatus(data.profile.following);
         } catch (e) {
-            alert(e)
+            Toast.error();
         }
     }
 
@@ -29,7 +30,7 @@ const FollowButtonInner = ({ username, follow }: Props) => {
             const { data } = await unfollowUser(username);
             changeFollowStatus(data.profile.following);
         } catch (e) {
-            alert(e)
+            Toast.error();
         }
     }
 

@@ -3,10 +3,10 @@ import cls from "classnames";
 import './Input.scss';
 
 interface inputProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'onChange'> {
-    onFocus?: (event?: React.FocusEvent<any>) => void;
-    onBlur?: (event?: React.FocusEvent<any>) => void;
+    onFocus?: (event?: React.FocusEvent<HTMLInputElement>) => void;
+    onBlur?: (event?: React.FocusEvent<HTMLInputElement>) => void;
     onChange?: (value: string) => void;
-    onClick?: (event?: React.MouseEvent<any>) => void;
+    onClick?: (event?: React.MouseEvent<HTMLInputElement>) => void;
     label?: string
     value?: string
     hasError?: string
@@ -22,7 +22,7 @@ const InputInner = ({ value, onFocus, onBlur, onChange, onClick, label, defaultV
     }, [defaultValue])
 
 
-    const handleFocus = () => {
+    const handleFocus = (event: React.FocusEvent<HTMLInputElement>) => {
         getFocus()
 
         if (onFocus) {
@@ -30,7 +30,7 @@ const InputInner = ({ value, onFocus, onBlur, onChange, onClick, label, defaultV
         }
     }
 
-    const handleBlur = (event: React.FocusEvent) => {
+    const handleBlur = (event: React.FocusEvent<HTMLInputElement>) => {
         getBlur()
 
         if (onBlur) {
@@ -38,7 +38,7 @@ const InputInner = ({ value, onFocus, onBlur, onChange, onClick, label, defaultV
         }
     }
 
-    const handleOnChange = (event: React.ChangeEvent<any>) => {
+    const handleOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const { value } = event.target
 
         if (onChange) {

@@ -17,8 +17,8 @@ export type RegistrationUser = {
 }
 
 export type UserInfo = {
-    email?: string,
-    username?: string,
+    email: string,
+    username: string,
     bio?: string,
     image?: string,
     password?: string
